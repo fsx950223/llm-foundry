@@ -1,0 +1,5 @@
+ENV PYTORCH_ROCM_ARCH=gfx942
+ENV ROCM_PATH=/opt/rocm/                                                      
+ENV CMAKE_PREFIX_PATH=${CONDA_PREFIX:-"$(dirname $(which conda))/../"}   
+RUN conda install cmake ninja
+RUN git clone -b tunablegemm https://github.com/ROCm/pytorch.git && cd pytorch && conda install --file requirements.txt && python3 tools/amd_build/build_amd.py && python3 setup.py install --user
