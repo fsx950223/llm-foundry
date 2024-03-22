@@ -51,12 +51,12 @@ classifiers = [
 ]
 
 install_requires = [
-    'mosaicml[libcloud,wandb,oci,gcs]>=0.20.1,<0.21',
+    #'mosaicml[libcloud,wandb,oci,gcs]>=0.20.1,<0.21',
     'mlflow>=2.10,<3',
     'accelerate>=0.25,<0.26',  # for HF inference `device_map`
     'transformers>=4.38.2,<4.39',
     'mosaicml-streaming>=0.7.4,<0.8',
-    'torch>=2.2.1,<2.3',
+    #'torch>=2.2.1,<2.3',
     'datasets>=2.16,<2.17',
     'fsspec==2023.6.0',  # newer version results in a bug in datasets that duplicates data
     'sentencepiece==0.1.97',
@@ -65,10 +65,10 @@ install_requires = [
     'slack-sdk<4',
     'mosaicml-cli>=0.6.10,<1',
     'onnx==1.14.0',
-    'onnxruntime==1.15.1',
+    #'onnxruntime==1.15.1',
     'cmake>=3.25.0,<=3.26.3',  # required for triton-pre-mlir below
     # PyPI does not support direct dependencies, so we remove this line before uploading from PyPI
-    'triton-pre-mlir@git+https://github.com/vchiley/triton.git@triton_pre_mlir_sm90#subdirectory=python',
+    #'triton-pre-mlir@git+https://github.com/vchiley/triton.git@triton_pre_mlir_sm90#subdirectory=python',
     'boto3>=1.21.45,<2',
     'huggingface-hub>=0.17.0,<1.0',
     'beautifulsoup4>=4.12.2,<5',  # required for model download utils
