@@ -1,0 +1,10 @@
+FROM rocm/pytorch:rocm6.0_ubuntu20.04_py3.9_pytorch_2.0.1
+ENV PYTORCH_ROCM_ARCH=gfx942
+ENV ROCM_PATH=/opt/rocm/                                                      
+ENV CMAKE_PREFIX_PATH=${CONDA_PREFIX:-"$(dirname $(which conda))/../"}   
+RUN pip install cmake ninja matplotlib pyarrow
+ENV MAX_JOBS=128
+RUN rm -rf pytorch && git clone -b tunable_op_torch2.0_mi300 https://github.com/ROCm/pytorch.git
+RUN cd pytorch pip install -r requirements.txt && git apply ft.patch  && git submodule update --init --recursive && python3 tools/amd_build/build_amd.py && python3 setup.py install
+RUN git clone -b tunable_op https://github.com/fsx950223/gradlib.git && cd gradlib && python3 setup.py install
+RUN git clone -b junhzhan/fa-mi300 https://github.com/ROCmSoftwarePlatform/flash-attention.git && cd flash-attention && patch /opt/conda/envs/py_3.9/lib/python3.9/site-packages/torch/utils/hipify/hipify_python.py hipify_patch.patch && git submodule update --init --recursive && python setup.py install
